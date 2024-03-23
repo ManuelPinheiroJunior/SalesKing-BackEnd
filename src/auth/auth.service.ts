@@ -19,13 +19,11 @@ export class AuthService {
     const user: UserEntity | undefined = await this.userService
       .findUserByEmail(loginDto.email)
       .catch(() => undefined);
-    console.log("🚀 ~ file: auth.service.ts:22 ~ AuthService ~ login ~ user:", user)
 
     const isMatch = await validatePassword(
       loginDto.password,
       user?.password || '',
     );
-    console.log("🚀 ~ file: auth.service.ts:28 ~ AuthService ~ login ~ isMatch:", isMatch)
 
     if (!user || !isMatch) {
       throw new NotFoundException('Email or passord invalid');
